@@ -20,7 +20,24 @@ public class ToolController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         initializeTools();
 
+        String action = req.getParameter("action");
+
+        if (action != null) {
+            processAction(action, Integer.valueOf(req.getParameter("id")));
+        }
+
         req.getRequestDispatcher("/tools.jsp").forward(req, resp);
+    }
+
+    private void processAction(String action, int toolId) {
+        switch (action) {
+            case "take":
+                toolsService.takeTool(toolId);
+                break;
+            case "return":
+                toolsService.returnTool(toolId);
+                break;
+        }
     }
 
     private void initializeTools() {
