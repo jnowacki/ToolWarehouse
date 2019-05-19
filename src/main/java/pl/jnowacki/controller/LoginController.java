@@ -21,8 +21,8 @@ public class LoginController extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username!= null && username.equals("myUser")
-            && password != null && password.equals("myPassword")) {
+        if (username!= null && "myUser".equals(username)
+            && password != null && "myPassword".equals(password)) {
             req.getSession().setAttribute("userName", username);
             resp.sendRedirect("/");
         } else {
