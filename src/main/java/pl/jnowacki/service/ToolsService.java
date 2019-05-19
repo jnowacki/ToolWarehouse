@@ -19,12 +19,12 @@ public class ToolsService {
         return toolDao.getAllTools().stream().filter(tool -> tool.getId().equals(id)).findAny();
     }
 
-    public void takeTool(Long id){
-        setAvailability(id, false);
+    public List<Tool> takeTool(Long id){
+        return setAvailability(id, false);
     }
 
-    public void returnTool(Long id){
-        setAvailability(id, true);
+    public List<Tool> returnTool(Long id){
+        return setAvailability(id, true);
     }
 
     private List<Tool> setAvailability(Long id, boolean isAvailable){
