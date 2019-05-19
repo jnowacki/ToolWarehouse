@@ -23,13 +23,13 @@ public class ToolController extends HttpServlet {
         String action = req.getParameter("action");
 
         if (action != null) {
-            processAction(action, Integer.valueOf(req.getParameter("id")));
+            processAction(action, Long.valueOf(req.getParameter("id")));
         }
 
         req.getRequestDispatcher("/tools.jsp").forward(req, resp);
     }
 
-    private void processAction(String action, int toolId) {
+    private void processAction(String action, Long toolId) {
         switch (action) {
             case "take":
                 toolsService.takeTool(toolId);
@@ -38,11 +38,11 @@ public class ToolController extends HttpServlet {
                 toolsService.returnTool(toolId);
                 break;
         }
+
+        initializeTools();
     }
 
     private void initializeTools() {
-        if (getServletContext().getAttribute(TOOL_VAR_NAME) == null) {
-            getServletContext().setAttribute(TOOL_VAR_NAME, toolsService.getTools());
-        }
+        getServletContext().setAttribute(TOOL_VAR_NAME, toolsService.getTools());
     }
 }
