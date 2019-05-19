@@ -43,6 +43,18 @@ public class ToolDaoImpl implements ToolDao{
 
     public void setAvailability(Long id, boolean availability) {
 
+        String selectSQL = "UPDATE tools SET available = ? WHERE id = ?";
+
+        try (Connection dbConnection = getDBConnection(); PreparedStatement preparedStatement = dbConnection.prepareStatement(selectSQL)) {
+
+            preparedStatement.setBoolean(1, availability);
+            preparedStatement.setLong(2, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static Connection getDBConnection() {
