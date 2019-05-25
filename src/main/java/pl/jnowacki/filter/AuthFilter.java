@@ -17,7 +17,7 @@ public class AuthFilter implements Filter {
 
         if (req.getSession().getAttribute("userName") == null
                 && !req.getRequestURI().endsWith("/login")) {
-            res.sendRedirect("/login");
+            res.sendRedirect(req.getContextPath() + "/login");
         } else {
             chain.doFilter(request, response);
         }

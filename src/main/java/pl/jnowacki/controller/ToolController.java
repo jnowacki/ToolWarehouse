@@ -26,8 +26,7 @@ public class ToolController extends HttpServlet {
         }
 
         req.setAttribute(TOOL_VAR_NAME, toolsService.getTools());
-
-        req.getRequestDispatcher("/tools.jsp").forward(req, resp);
+        req.getRequestDispatcher(req.getContextPath() + "/tools.jsp").forward(req, resp);
     }
 
     private void processAction(String action, Long toolId, HttpServletRequest req) {

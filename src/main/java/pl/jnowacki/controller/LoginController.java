@@ -16,7 +16,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
+        req.getRequestDispatcher(req.getContextPath() + "/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class LoginController extends HttpServlet {
             req.getSession().setAttribute("userName", username);
             resp.sendRedirect("/");
         } else {
-            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher(req.getContextPath() + "/login.jsp").forward(req, resp);
         }
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getSession().invalidate();
-        resp.sendRedirect("/login");
+        resp.sendRedirect(req.getContextPath() + "/login");
     }
 }
