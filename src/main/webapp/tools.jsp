@@ -27,7 +27,7 @@
             <td>${tool.type}</td>
             <c:choose>
                 <c:when test="${tool.available}">
-                    <td style="background-color: GREEN"></td>
+                    <td style="height: 40px; background-color: GREEN"></td>
                     <td>
                         <form>
                             <input type="hidden" name="action" value="take">
@@ -36,8 +36,8 @@
                         </form>
                     </td>
                 </c:when>
-                <c:otherwise>
-                    <td style="background-color: RED"></td>
+                <c:when test="${sessionScope.user.id == tool.userId}">
+                    <td style="height: 40px; background-color: RED"></td>
                     <td>
                         <form>
                             <input type="hidden" name="action" value="return">
@@ -45,6 +45,9 @@
                             <input type="submit" value="Return">
                         </form>
                     </td>
+                </c:when>
+                <c:otherwise>
+                    <td style="height: 40px; background-color: RED"></td>
                 </c:otherwise>
             </c:choose>
 

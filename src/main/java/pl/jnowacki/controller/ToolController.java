@@ -1,5 +1,6 @@
 package pl.jnowacki.controller;
 
+import pl.jnowacki.model.User;
 import pl.jnowacki.service.ToolsService;
 
 import javax.servlet.ServletException;
@@ -33,8 +34,8 @@ public class ToolController extends HttpServlet {
 
         switch (action) {
             case "take":
-                String username = (String)req.getSession().getAttribute("userName");
-                req.setAttribute(TOOL_VAR_NAME, toolsService.takeTool(toolId, username));
+                User user = (User)req.getSession().getAttribute("user");
+                req.setAttribute(TOOL_VAR_NAME, toolsService.takeTool(toolId, user));
                 break;
             case "return":
                 req.setAttribute(TOOL_VAR_NAME, toolsService.returnTool(toolId));

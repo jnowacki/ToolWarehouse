@@ -18,16 +18,10 @@ public class ToolsService {
         return toolDao.getAllTools();
     }
 
-    public Optional<Tool> getTool(Long id){
-        return toolDao.getAllTools().stream().filter(tool -> tool.getId().equals(id)).findAny();
-    }
+    public List<Tool> takeTool(Long id, User user){
 
-    public List<Tool> takeTool(Long id, String username){
-
-        Optional<User> user = userService.getUser(username);
-
-        if (user.isPresent()) {
-            return setAvailability(id, false, user.get().getId());
+        if (user != null) {
+            return setAvailability(id, false, user.getId());
         }
 
         return Collections.emptyList();
