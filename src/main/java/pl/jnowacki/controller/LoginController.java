@@ -1,7 +1,6 @@
 package pl.jnowacki.controller;
 
-import pl.jnowacki.dao.UserDao;
-import pl.jnowacki.dao.UserDaoImpl;
+import pl.jnowacki.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,8 @@ import java.io.IOException;
 
 @WebServlet(name = "Login" , value = "/login")
 public class LoginController extends HttpServlet {
+
+    private UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,11 +35,11 @@ public class LoginController extends HttpServlet {
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        if (username != null && "myUser".equals(username)
-                && password != null && "myPassword".equals(password)) {
+        if (username != null && password != null && userService.isUserValid(username, password)) {
             req.getSession().setAttribute("userName", username);
             resp.sendRedirect("/");
         } else {
