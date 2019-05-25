@@ -2,6 +2,7 @@ package pl.jnowacki.service;
 
 import pl.jnowacki.dao.UserDao;
 import pl.jnowacki.dao.UserDaoImpl;
+import pl.jnowacki.util.PasswordUtil;
 
 public class UserService {
 
@@ -10,7 +11,10 @@ public class UserService {
     public boolean isUserValid(String login, String password) {
 
         return userDao.getUser(login)
-                .map(user -> password.equals(user.getPassword()) && login.equals(user.getLogin()))
+                .map(user -> {
+                    boolean doesPasswordMatch = PasswordUtil.checkPassword(password, user.getPassword());
+                    return doesPasswordMatch && login.equals(user.getLogin());
+                })
                 .orElse(false);
     }
 }
