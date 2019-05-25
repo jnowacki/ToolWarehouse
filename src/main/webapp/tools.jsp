@@ -20,7 +20,7 @@
         <th>Take/Return</th>
     </tr>
 
-    <c:forEach items="${applicationScope.tools}" var="tool">
+    <c:forEach items="${requestScope.tools}" var="tool">
         <tr>
             <td>${tool.id}</td>
             <td>${tool.name}</td>
