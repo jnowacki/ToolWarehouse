@@ -2,7 +2,10 @@ package pl.jnowacki.service;
 
 import pl.jnowacki.dao.UserDao;
 import pl.jnowacki.dao.UserDaoImpl;
+import pl.jnowacki.model.User;
 import pl.jnowacki.util.PasswordUtil;
+
+import java.util.Optional;
 
 public class UserService {
 
@@ -16,5 +19,9 @@ public class UserService {
                     return doesPasswordMatch && login.equals(user.getLogin());
                 })
                 .orElse(false);
+    }
+
+    public Optional<User> getUser(String username) {
+        return userDao.getUser(username);
     }
 }

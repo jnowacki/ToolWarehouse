@@ -33,7 +33,8 @@ public class ToolController extends HttpServlet {
 
         switch (action) {
             case "take":
-                req.setAttribute(TOOL_VAR_NAME, toolsService.takeTool(toolId));
+                String username = (String)req.getSession().getAttribute("userName");
+                req.setAttribute(TOOL_VAR_NAME, toolsService.takeTool(toolId, username));
                 break;
             case "return":
                 req.setAttribute(TOOL_VAR_NAME, toolsService.returnTool(toolId));

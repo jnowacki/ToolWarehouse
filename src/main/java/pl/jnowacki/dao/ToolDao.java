@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ToolDao {
     List<Tool> getAllTools();
-    void setAvailability(Long id, boolean availability);
+    void setAvailability(Long id, boolean availability, Long userId);
 }

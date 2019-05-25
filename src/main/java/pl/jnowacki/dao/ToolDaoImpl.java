@@ -27,8 +27,9 @@ public class ToolDaoImpl implements ToolDao {
                 String toolName = rs.getString("name");
                 ToolType toolType = ToolType.valueOf(rs.getString("type"));
                 boolean toolAvailability = rs.getBoolean("available");
+                Long userId = rs.getLong("user_id");
 
-                tools.add(new Tool(toolId, toolName, toolType, toolAvailability));
+                tools.add(new Tool(toolId, toolName, toolType, toolAvailability, userId));
             }
 
         } catch (SQLException e) {
@@ -38,15 +39,16 @@ public class ToolDaoImpl implements ToolDao {
         return tools;
     }
 
-    public void setAvailability(Long id, boolean availability) {
+    public void setAvailability(Long id, boolean availability, Long userId) {
 
-        String selectSQL = "UPDATE tools SET available = ? WHERE id = ?";
+        String selectSQL = "UPDATE tools SET available = ?, user_id = ? WHERE id = ?";
 
         try (Connection dbConnection = DbConnection.getInstance().getDBConnection();
              PreparedStatement preparedStatement = dbConnection.prepareStatement(selectSQL)) {
 
             preparedStatement.setBoolean(1, availability);
-            preparedStatement.setLong(2, id);
+            preparedStatement.setObject(2, userId);
+            preparedStatement.setLong(3, id);
 
             preparedStatement.executeUpdate();
 
